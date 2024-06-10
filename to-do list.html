@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rebeccapurple;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 400px;
+            background-color:rebeccapurple;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #bb1663;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #bb1663;
+            color: rebeccapurple;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #bb1663;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            background-color: #bb1663;
+            border-bottom: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .delete {
+            background-color: #bb1663;
+            color: rebeccapurple;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .delete:hover {
+            background-color: #bb1663;
+        }
+        .task {
+            flex-grow: 1;
+            margin-right: 10px;
+            color: #333;
+        }
+        .task::before {
+            content: "📝";
+            margin-right: 5px;
+        }
+        .study-task {
+            background-color: #bb1663;
+        }
+        .study-task::before {
+            content: "📚";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Add new task...">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+        <button onclick="addPredefinedTasks()">Add Predefined Tasks</button>
+    </div>
+
+    <script>
+        function addTask() {
+            var input = document.getElementById("taskInput");
+            var task = input.value.trim();
+            if (task === "") return;
+            
+            var list = document.getElementById("taskList");
+            var listItem = document.createElement("li");
+            listItem.textContent = task;
+            listItem.className = "task";
+            
+            if (task.toLowerCase().includes("web development")) {
+                listItem.className += " study-task";
+            }
+            
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete";
+            deleteButton.onclick = function() {
+                list.removeChild(listItem);
+            };
+            
+            listItem.appendChild(deleteButton);
+            list.appendChild(listItem);
+            
+            input.value = "";
+        }
+
+        function addPredefinedTasks() {
+            const tasks = [
+                "Study the Introduction to HTML",
+                "Practice HTML and CSS",
+                "Build a personal portfolio website",
+                "Study about HTML Links & Images",
+                "Study JavaScript frameworks",
+                "Create a Personal Profile",
+                "Study DOM Events and JavaScript Event Listeners"
+                    ];
+            var list = document.getElementById("taskList");
+
+            tasks.forEach(task => {
+                var listItem = document.createElement("li");
+                listItem.textContent = task;
+                listItem.className = "task";
+                
+                if (task.toLowerCase().includes("web development")) {
+                    listItem.className += " study-task";
+                }
+                
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "delete";
+                deleteButton.onclick = function() {
+                    list.removeChild(listItem);
+                };
+                
+                listItem.appendChild(deleteButton);
+                list.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
